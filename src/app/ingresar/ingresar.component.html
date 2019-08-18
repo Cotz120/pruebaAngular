@@ -1,0 +1,54 @@
+<div>
+    <button class="btn btn-primary" (click)="volver()">Volver al inicio.</button>
+</div>
+
+<form [formGroup]="registroFormGroup">
+    <div class="row">
+        <div class="col">
+            <br>
+            <div *ngIf="!edicion" class="panel-title text-center" style="background-color:lightgreen">Ingresar Datos.</div>
+            <div *ngIf="edicion" class="panel-title text-center" style="background-color:lightgreen">Editar Datos.</div>
+            <br>
+            Nombre:
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input formControlName="nombre" id="nombre" type="text" class="form-control" name="nombre">
+            </div>
+            <button *ngIf="!edicion" class="btn btn-primary" (click)="insertar()">Agregar</button>
+            <button *ngIf="edicion" class="btn btn-primary" (click)="actualizar()">Actualizar</button>
+
+            <div class="alert alert-warning" role="alert" *ngIf="vacio" style="text-align: center;">
+                    Este campo no puede estar vacio.
+            </div> 
+            <br>
+            <br>
+            <div class="panel-title text-center" style="background-color:lightgreen">Datos:</div>
+            <br>
+            <table class="table table-bordered " style="background: #CAE9FF;">
+                <thead>
+                    <tr mdbSticky>
+                        <th>Id</th>
+                        <th>Nombres</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody style="background:white;">
+                    <tr *ngFor="let datos of datos; let i=index">
+                        <td>{{i}}</td>
+                        <td>{{datos}}</td>
+                        <td>
+                            <button class="btn btn-primary" (click)="editar(i)">Editar</button>
+                            | 
+                            <button class="btn btn-primary" (click)="borrar(i)">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <br>
+            <div class="panel-title text-center" style="background-color:lightgreen">Datos en formato Json:</div>
+            <textarea readonly formControlName="json" id="json" name="json" id="json" class="form-control noresize" rows="3"></textarea>
+        </div>
+    </div>
+</form>
